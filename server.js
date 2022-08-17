@@ -14,7 +14,7 @@ app.use(express.json());
 // sets static files path
 app.use(express.static("Develop/public"))
 
-// html route to display index onto page
+// html route to display index.html onto page
 app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 });
@@ -52,7 +52,11 @@ app.delete(`/api/notes/:id`, (req, res) => {
         const noteIndex = notes.findIndex(index => index.id === id)
         notes.splice(noteIndex, 1)
 
-        fs.writeFileSync(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify({notes: notes}), null, 2)
+        // updates notes json file
+        fs.writeFileSync(path.join(__dirname, "./Develop/db/db.json"), JSON.stringify({ notes: notes }), null, 2)
+        
+        // sends updated json
+        return res.send(notes)
     } else {
         console.log("Note not found.")
         return
