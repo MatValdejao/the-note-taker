@@ -1,54 +1,49 @@
 const express = require("express");
 const path = require("path");
-const {notes} = require("./Develop/db/db.json")
-const createNewNote = require("./lib/notes")
+const { notes } = require("./Develop/db/db.json");
+const createNewNote = require("./lib/notes");
 
-const PORT = 3001 || process.env.PORT
+const PORT = 3001 || process.env.PORT;
 
-const app = express()
+const app = express();
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("Develop/public"))
 
 // html route to display index onto page
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"))
+	res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 });
 
 // html route to display notes onto page
 app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"))
+	res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
 });
 
 // gets notes json data
 app.get("/api/notes", (req, res) => {
-    let results = notes
+	let results = notes;
 
-    res.json(results)
-})
+	res.json(results);
+});
 
 // will post notes once added by user
 app.post("/api/notes", (req, res) => {
-    console.log(req.body)
+	// sets an id to individual notes to keep track
+	req.body.id = notes.length.toString();
 
-    // sets an id to individual notes to keep track
-    req.body.id = notes.length.toString()
-
-    // creates note
-    const note = createNewNote(req.body, notes)
-    res.json(note)
-
-})
-
+	// creates note
+	const note = createNewNote(req.body, notes);
+	res.json(note);
+});
 
 // deals with incorrect requests
-app.get("*", (req, res) => {   
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
-})
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+});
 
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-})
-
-
+	console.log(`Listening on port ${PORT}`);
+});
