@@ -21,11 +21,6 @@ app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "./Develop/public/notes.html"))
 });
 
-// deals with incorrect requests
-app.get("*", (req, res) => {   
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
-})
-
 // gets notes json data
 app.get("/api/notes", (req, res) => {
     let results = notes
@@ -44,6 +39,12 @@ app.post("/api/notes", (req, res) => {
     const note = createNewNote(req.body, notes)
     res.json(note)
 
+})
+
+
+// deals with incorrect requests
+app.get("*", (req, res) => {   
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
 })
 
 app.listen(PORT, () => {
