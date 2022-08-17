@@ -13,9 +13,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/notes", (req, res) => {
-    let notes = res
-
-    console.log(notes)
+    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"))
 })
 
 app.listen(PORT, () => {
