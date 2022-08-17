@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
-const notes = require("./Develop/db/db.json")
+const {notes} = require("./Develop/db/db.json")
+const createNewNote = require("./lib/notes")
 
 const PORT = 3001 || process.env.PORT
 
@@ -35,6 +36,7 @@ app.get("/api/notes", (req, res) => {
 // will post notes once added by user
 app.post("/api/notes", (req, res) => {
     console.log(req.body)
+
     // sets an id to individual notes to keep track
     req.body.id = notes.length.toString()
 
@@ -47,3 +49,5 @@ app.post("/api/notes", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 })
+
+

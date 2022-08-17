@@ -1,8 +1,8 @@
 {
-  "note": [
-    {
-      "title": "Test Title",
-      "text": "Test text"
-    }
-  ]
+    "notes":
+    [
+        { "title": "Test Title", "text": "Test text" },
+        { "title": "Another Note", "text": "This is another note.", "id": "1" },
+        { "title": "Another Note", "text": "This is one more note.", "id": "2" }
+    ]
 }
